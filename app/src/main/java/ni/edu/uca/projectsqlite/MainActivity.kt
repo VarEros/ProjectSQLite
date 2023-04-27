@@ -9,7 +9,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import ni.edu.uca.projectsqlite.database.CityVM
+import ni.edu.uca.projectsqlite.database.CityVMFactory
 import ni.edu.uca.projectsqlite.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

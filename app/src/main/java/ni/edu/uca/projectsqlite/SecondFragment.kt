@@ -1,7 +1,10 @@
 package ni.edu.uca.projectsqlite
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,24 +37,27 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        cityViewModel.allWords.observe(this, Observer { cities ->
-            // Update the cached copy of the words in the adapter.
-            cities?.let { adapter.submitList(it) }
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonSave.setOnClickListener {
+            val replyIntent = Intent()
+            if (TextUtils.isEmpty(binding.etNombre.text)) {
+                requireActivity().setResult(Activity.RESULT_CANCELED, replyIntent)
+            } else {
+                val word = binding.etNombre.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY, word)
+                requireActivity().setResult(Activity.RESULT_OK, replyIntent)
+            }
+            requireActivity().finish()
         }
+    }
+
+    companion object {
+        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
     }
 
     override fun onDestroyView() {
